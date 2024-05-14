@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://csubtgyvcj8gs"]
+
+[ext_resource type="Script" path="res://Samples/main.gd" id="1_oy85q"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_oy85q")
+
+[node name="VHStart" type="Button" parent="."]
+layout_mode = 0
+offset_left = 290.0
+offset_top = 173.0
+offset_right = 870.0
+offset_bottom = 293.0
+theme_override_font_sizes/font_size = 80
+disabled = true
+text = "VRoidHubStart"
+
+[node name="ModelLoad" type="Button" parent="."]
+layout_mode = 0
+offset_left = 290.0
+offset_top = 350.0
+offset_right = 870.0
+offset_bottom = 470.0
+theme_override_font_sizes/font_size = 80
+disabled = true
+text = "ModelLoad"
+
+[connection signal="pressed" from="VHStart" to="." method="_on_vh_start_pressed"]
+[connection signal="pressed" from="ModelLoad" to="." method="_on_model_load_pressed"]

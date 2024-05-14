@@ -1,0 +1,116 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb3epvk6gj242"]
+
+[ext_resource type="Script" path="res://addons/vha4gd/src/scripts/model_list.gd" id="1_i6yks"]
+
+[node name="ModelList" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i6yks")
+
+[node name="model_select" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -951.0
+offset_top = -574.0
+offset_right = -201.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="mode_select" type="TabBar" parent="model_select"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+tab_count = 3
+clip_tabs = false
+tab_0/title = "MyModel"
+tab_1/title = "FavariteModel"
+tab_2/title = "StaffModel"
+
+[node name="MyModel" type="ScrollContainer" parent="model_select"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 42.0
+offset_right = 747.0
+offset_bottom = 496.0
+horizontal_scroll_mode = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="model_select/MyModel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="model_select/MyModel/PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="model_select/MyModel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="FavoriteModel" type="ScrollContainer" parent="model_select"]
+visible = false
+layout_mode = 0
+offset_left = 2.0
+offset_top = 42.0
+offset_right = 747.0
+offset_bottom = 496.0
+
+[node name="PanelContainer" type="PanelContainer" parent="model_select/FavoriteModel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="model_select/FavoriteModel/PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="model_select/FavoriteModel/PanelContainer/VBoxContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="StaffModel" type="ScrollContainer" parent="model_select"]
+visible = false
+layout_mode = 0
+offset_left = 2.0
+offset_top = 42.0
+offset_right = 747.0
+offset_bottom = 496.0
+
+[node name="PanelContainer" type="PanelContainer" parent="model_select/StaffModel"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="model_select/StaffModel/PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="model_select/StaffModel/PanelContainer/HBoxContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="close" type="Button" parent="model_select"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 11.0
+offset_right = 737.0
+offset_bottom = 42.0
+text = "閉じる"
+
+[node name="Loading" type="Popup" parent="."]
+handle_input_locally = false
+gui_disable_input = true
+size = Vector2i(194, 100)
+mouse_passthrough = true
+
+[node name="Label" type="Label" parent="Loading"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "モデルのダウンロード中
+完了後ゲームが再起動します。"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="tab_changed" from="model_select/mode_select" to="." method="_on_mode_select_tab_changed"]
+[connection signal="pressed" from="model_select/close" to="." method="_on_close_pressed"]

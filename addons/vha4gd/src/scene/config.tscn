@@ -1,0 +1,186 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqtjcct7he6u7"]
+
+[ext_resource type="Script" path="res://addons/vha4gd/src/scripts/config.gd" id="1_3j1nn"]
+
+[node name="Config" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3j1nn")
+
+[node name="ATLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "AccessToken"
+
+[node name="AccessToken" type="Label" parent="."]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 99.0
+offset_bottom = 43.0
+
+[node name="CharacterIDLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 55.0
+offset_right = 99.0
+offset_bottom = 78.0
+text = "CharacterID"
+
+[node name="CharacterID" type="Label" parent="."]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 99.0
+offset_bottom = 103.0
+
+[node name="RefreshTokenLabel" type="Label" parent="."]
+layout_mode = 0
+offset_top = 119.0
+offset_right = 107.0
+offset_bottom = 142.0
+text = "RefreshToken"
+
+[node name="RefreshToken" type="Label" parent="."]
+layout_mode = 0
+offset_top = 139.0
+offset_right = 99.0
+offset_bottom = 162.0
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+title = "Error!"
+position = Vector2i(0, 36)
+size = Vector2i(289, 100)
+borderless = false
+
+[node name="Label" type="Label" parent="PopupPanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 285.0
+offset_bottom = 96.0
+text = "VRMプラグインがインストールされていません。
+このまま実行するとエラーが起きます。"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClientIDNode" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 5.0
+offset_right = 440.0
+offset_bottom = 45.0
+
+[node name="ClientID" type="LineEdit" parent="ClientIDNode"]
+layout_mode = 0
+offset_left = 301.0
+offset_right = 746.0
+offset_bottom = 31.0
+clear_button_enabled = true
+
+[node name="ClientIDTitle" type="Label" parent="ClientIDNode"]
+layout_mode = 0
+offset_left = 220.0
+offset_right = 295.0
+offset_bottom = 23.0
+text = "ClientID : "
+horizontal_alignment = 2
+
+[node name="ClientSecretNode" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 45.0
+offset_right = 440.0
+offset_bottom = 85.0
+
+[node name="ClientSecret" type="LineEdit" parent="ClientSecretNode"]
+layout_mode = 0
+offset_left = 301.0
+offset_right = 746.0
+offset_bottom = 31.0
+clear_button_enabled = true
+
+[node name="ClientSecretTitle" type="Label" parent="ClientSecretNode"]
+layout_mode = 0
+offset_left = 187.0
+offset_right = 293.0
+offset_bottom = 23.0
+text = "ClientSecret : "
+horizontal_alignment = 2
+
+[node name="RedirectURINode" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 85.0
+offset_right = 440.0
+offset_bottom = 125.0
+
+[node name="RedirectURI" type="LineEdit" parent="RedirectURINode"]
+layout_mode = 0
+offset_left = 301.0
+offset_right = 746.0
+offset_bottom = 31.0
+text = "urn:ietf:wg:oauth:2.0:oob"
+placeholder_text = "urn:ietf:wg:oauth:2.0:oob"
+clear_button_enabled = true
+
+[node name="RedirectURITitle" type="Label" parent="RedirectURINode"]
+layout_mode = 0
+offset_left = 187.0
+offset_right = 293.0
+offset_bottom = 23.0
+text = "RedirectURI : "
+horizontal_alignment = 2
+
+[node name="ScopeNode" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 399.0
+offset_top = 124.0
+offset_right = 439.0
+offset_bottom = 164.0
+
+[node name="Scope" type="LineEdit" parent="ScopeNode"]
+layout_mode = 0
+offset_left = 301.0
+offset_right = 746.0
+offset_bottom = 31.0
+text = "default"
+placeholder_text = "default"
+clear_button_enabled = true
+
+[node name="ScopeTitle" type="Label" parent="ScopeNode"]
+layout_mode = 0
+offset_left = 187.0
+offset_right = 293.0
+offset_bottom = 23.0
+text = "Scope : "
+horizontal_alignment = 2
+
+[node name="SetButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1111.0
+offset_top = 157.0
+offset_right = 1144.0
+offset_bottom = 188.0
+text = "Set"
+
+[node name="RefreshButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 157.0
+offset_right = 1087.0
+offset_bottom = 188.0
+text = "Refresh"
+
+[node name="ClearButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 157.0
+offset_right = 993.0
+offset_bottom = 188.0
+text = "Clear"
+
+[connection signal="pressed" from="SetButton" to="." method="_on_set_button_pressed"]
+[connection signal="pressed" from="RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="ClearButton" to="." method="_on_clear_button_pressed"]

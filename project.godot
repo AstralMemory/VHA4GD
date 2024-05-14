@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="VHA4GD"
+config/version="1.0"
+run/main_scene="res://Samples/main.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+VRoidHub="*res://addons/vha4gd/src/scripts/load.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/vha4gd/plugin.cfg")
+
+[godot_idea_board]
+
+directory_path="res://addons/godot-idea-board/savedata/"

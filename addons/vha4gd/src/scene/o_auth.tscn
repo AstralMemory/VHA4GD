@@ -1,0 +1,109 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5jcmwjp3akas"]
+
+[ext_resource type="Script" path="res://addons/vha4gd/src/scripts/o_auth.gd" id="1_34mxx"]
+
+[node name="OAuth" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_34mxx")
+
+[node name="model_load" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -130.0
+offset_right = 250.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="model_load_title" type="Label" parent="model_load"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 158.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "モデル読み込み"
+
+[node name="model_load_button" type="Button" parent="model_load"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -100.0
+offset_right = 20.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "開始"
+
+[node name="close" type="Button" parent="model_load"]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 13.0
+offset_right = 483.0
+offset_bottom = 44.0
+text = "閉じる"
+
+[node name="oauth" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -246.0
+offset_top = -129.0
+offset_right = 254.0
+offset_bottom = 121.0
+
+[node name="oauth_title" type="Label" parent="oauth"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 158.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "認証コード入力"
+
+[node name="oauth_code_input" type="LineEdit" parent="oauth"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 116.0
+offset_right = 471.0
+offset_bottom = 147.0
+placeholder_text = "認証コードを入力してください"
+
+[node name="auth" type="Button" parent="oauth"]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 171.0
+offset_right = 281.0
+offset_bottom = 221.0
+theme_override_font_sizes/font_size = 30
+text = "認証"
+
+[node name="back" type="Button" parent="oauth"]
+layout_mode = 0
+offset_left = 446.0
+offset_top = 13.0
+offset_right = 483.0
+offset_bottom = 44.0
+text = "戻る"
+
+[connection signal="pressed" from="model_load/model_load_button" to="." method="_on_model_load_button_pressed"]
+[connection signal="pressed" from="model_load/close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="oauth/auth" to="." method="_on_auth_pressed"]
+[connection signal="pressed" from="oauth/back" to="." method="_on_back_pressed"]
