@@ -7,7 +7,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !get_node_or_null("/root/VRoidHub/OAuth") and !get_node_or_null("/root/VRoidHub/ModelList"):
 		$VHStart.show()
 		$ModelLoad.show()

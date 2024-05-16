@@ -108,9 +108,10 @@ func _on_mymodel_data_request_completed(result, response_code, headers, body):
 		}
 		new_conf.store_string(JSON.stringify(config_data))
 		new_conf.close()
-		VRoidHub.start()
+		Dialog.access_token_error_dialog()
 	else:
 		print("MyModel Error: " + str(response_code) + "\n" + body.get_string_from_utf8())
+
 func _on_favorite_data_request_completed(result, response_code, headers, body):
 	var json = JSON.new()
 	if response_code == 200:
@@ -130,24 +131,24 @@ func _on_favorite_data_request_completed(result, response_code, headers, body):
 func _request_next_mymodel_image():
 	if mymodel_current_request_index < mymodel_image_queue.size():
 		var image_url = mymodel_image_queue[mymodel_current_request_index]
-		remove_child(mymodel_data_request)
-		mymodel_image_request.name = "MyModelImageRequest"
-		mymodel_image_request.connect("request_completed", Callable(self, "_on_mymodel_image_request_completed"))
-		add_child(mymodel_image_request)
+		if !get_node_or_null("MyModelRequest"):
+			remove_child(mymodel_data_request)
+		if !get_node_or_null("MyModelImageRequest"):
+			mymodel_image_request.name = "MyModelImageRequest"
+			mymodel_image_request.connect("request_completed", Callable(self, "_on_mymodel_image_request_completed"))
+			add_child(mymodel_image_request)
 		mymodel_image_request.request(image_url)
-	else:
-		pass
 
 func _request_next_favorite_image():
 	if favorite_current_request_index < favorite_image_queue.size():
 		var image_url = favorite_image_queue[favorite_current_request_index]
-		remove_child(favorite_data_request)
-		favorite_image_request.name = "FavoriteImageRequest"
-		favorite_image_request.connect("request_completed", Callable(self, "_on_favorite_image_request_completed"))
-		add_child(favorite_image_request)
+		if !get_node_or_null("FavoriteModelRequest"):
+			remove_child(favorite_data_request)
+		if !get_node_or_null("FavoriteImageRequest"):
+			favorite_image_request.name = "FavoriteImageRequest"
+			favorite_image_request.connect("request_completed", Callable(self, "_on_favorite_image_request_completed"))
+			add_child(favorite_image_request)
 		favorite_image_request.request(image_url)
-	else:
-		pass
 
 func _on_mymodel_image_request_completed(result, response_code, headers, body):
 	if response_code == 200:
@@ -173,7 +174,6 @@ func _on_mymodel_image_request_completed(result, response_code, headers, body):
 				btn.texture_normal = tex.create_from_image(img)
 			else:
 				print("MyButtonCreateError!")
-				get_tree().quit()
 			var id = mymodel_character_id[mymodel_current_request_index]
 			btn.set_meta("character_id", id)
 			btn.name = "mymodel_button" + str(mymodel_current_request_index)
@@ -287,9 +287,7 @@ func _on_model_request_completed(result, response_code, headers, body):
 	elif response_code == 200:
 		remove_child(mdl_request)
 		mdl_request.queue_free()
-		var path = OS.get_executable_path()
-		OS.execute(path, [], [], false)
-		get_tree().quit()
+		Dialog.download_completed_dialog()
 	else:
 		print("Failed to download file. Response Code:" + str(response_code) + "\n" + body.get_string_from_utf8())
 

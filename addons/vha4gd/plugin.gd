@@ -6,6 +6,7 @@ var config = config_scene.instantiate()
 
 func _enter_tree():
 	add_autoload_singleton("VRoidHub", "res://addons/vha4gd/src/scripts/load.gd")
+	add_autoload_singleton("Dialog", "res://addons/vha4gd/src/scene/dialog.tscn")
 	if !FileAccess.file_exists("user://config.json"):
 		var f = FileAccess.open("user://config.json", FileAccess.WRITE)
 		var config_data = {
@@ -41,5 +42,6 @@ func _get_plugin_icon():
 func _exit_tree():
 	# Clean-up of the plugin goes here.
 	remove_autoload_singleton("VRoidHub")
+	remove_autoload_singleton("Dialog")
 	EditorInterface.get_editor_main_screen().remove_child(config)
 	config.free()
