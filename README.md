@@ -23,7 +23,7 @@ GodotAssetLibraryは<a href=https://godotengine.org/asset-library/asset/2974>こ
 最後に当プラグインは個人で開発を行っております。今後のサービス継続や向上の為ぜひとも<a href=https://www.buymeacoffee.com/astralmemory10>寄付</a>のほどよろしくお願いいたします。
 
 <hr>
-# English
+# English<br>
 GodotAssetLibrary is <a href=https://godotengine.org/asset-library/asset/2974>here</a>
  This project file is<br>
   This includes a plugin for using VRoidHubAPI with GodotEngine! <br>
