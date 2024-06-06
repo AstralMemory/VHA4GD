@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://addons/vha4gd/src/scripts/dialog.gd" id="1_u4l64"]
 
 [node name="Dialog" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +13,6 @@ grow_vertical = 2
 script = ExtResource("1_u4l64")
 
 [node name="DownloadCompleted" type="Window" parent="."]
-title = "完了"
 size = Vector2i(179, 100)
 visible = false
 wrap_controls = true
@@ -39,5 +39,10 @@ size = Vector2i(297, 100)
 dialog_text = "VRMプラグインがインストールされていません。"
 dialog_close_on_escape = false
 
+[node name="Error" type="AcceptDialog" parent="."]
+title = "Error!"
+dialog_close_on_escape = false
+
 [connection signal="confirmed" from="AccessTokenError" to="." method="_on_access_token_error_confirmed"]
 [connection signal="confirmed" from="NoVRMPlugin" to="." method="_on_no_vrm_plugin_confirmed"]
+[connection signal="confirmed" from="Error" to="." method="_on_error_confirmed"]

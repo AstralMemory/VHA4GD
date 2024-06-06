@@ -9,3 +9,42 @@ script = ExtResource("1_oajfm")
 transform = Transform3D(1, 0, 0, 0, 0.937798, 0.347181, 0, -0.347181, 0.937798, 0, 1.35295, 1.09529)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="PlayAnim" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "PlayAnimation"
+
+[node name="StopAnim" type="Button" parent="."]
+offset_top = 30.0
+offset_right = 124.0
+offset_bottom = 61.0
+text = "StopAnimation"
+
+[node name="Back" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Back"
+
+[node name="Load" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -15.5
+offset_right = 22.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "モデル読み込み"
+
+[connection signal="pressed" from="PlayAnim" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StopAnim" to="." method="_on_stop_anim_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Load" to="." method="_on_load_pressed"]

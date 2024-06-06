@@ -3,7 +3,12 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Config.rewrite_config("rewrite", "client_id", "e4JzHnT6zeek8HJ5ZdAvwqwp09f3hqfgC98JtLJz4Rw", 1)
+	Config.rewrite_config("rewrite", "client_secret", "m6F6H49bC2o3C3Vxf_4Zvbw_rjN_KEm-uc8i0MKPrz8", 1)
+	Config.rewrite_config("rewrite", "localvrm", "ModelLoadScene", 1)
+	Config.rewrite_config("rewrite", "scene_path", "res://Samples/model_load_scene.tscn", 1)
+	Config.rewrite_config("rewrite", "change_scene", "true", 1)
+	Config.rewrite_config("rewrite", "language", "1", 1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

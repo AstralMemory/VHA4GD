@@ -45,9 +45,12 @@ func _init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var config_file = FileAccess.open("user://config.json", FileAccess.READ)
-	var config = JSON.parse_string(config_file.get_as_text())
-	config_file.close()
+	var config = Config.read_config()
+	match int(config["language"]):
+		0:
+			$model_select/close.text = "Close"
+		1:
+			$model_select/close.text = "閉じる"
 	FAVORITE_API = "https://hub.vroid.com/api/hearts?" + config["client_id"]
 	header = ["X-Api-Version: 11", "Authorization: Bearer " + config["access_token"]]
 	mdl_header = ["X-Api-Version: 11", "Authorization: Bearer " + config["access_token"], "Content-Type: application/x-www-form-urlencoded"]
@@ -83,31 +86,7 @@ func _on_mymodel_data_request_completed(result, response_code, headers, body):
 		else:
 			print("MyModel Error: " + str(response_code))
 	elif response_code == 401:
-		var config_file = FileAccess.open("user://config.json", FileAccess.READ_WRITE)
-		var config = JSON.parse_string(config_file.get_as_text())
-		access_token = config["access_token"]
-		refresh_token = config["refresh_token"]
-		character_id = config["character_id"]
-		client_id = config["client_id"]
-		client_secret = config["client_secret"]
-		redirect_uri = config["redirect_uri"]
-		scope = config["scope"]
-		grant_type = "refresh_token"
-		config_file.close()
-		DirAccess.remove_absolute("user://config.json")
-		var new_conf = FileAccess.open("user://config.json", FileAccess.WRITE)
-		var config_data = {
-			"access_token": access_token,
-			"refresh_token": refresh_token,
-			"character_id": character_id,
-			"client_id": client_id,
-			"client_secret": client_secret,
-			"redirect_uri": redirect_uri,
-			"scope": scope,
-			"grant_type": grant_type
-		}
-		new_conf.store_string(JSON.stringify(config_data))
-		new_conf.close()
+		Config.rewrite_config("rewrite", "grant_type", "refresh_token")
 		Dialog.access_token_error_dialog()
 	else:
 		print("MyModel Error: " + str(response_code) + "\n" + body.get_string_from_utf8())
@@ -232,24 +211,22 @@ func _on_btn_pressed(pressed_button, mode):
 	match mode:
 		"mymodel":
 			var btn = get_node("/root/VRoidHub/ModelList/model_select/MyModel/PanelContainer/VBoxContainer/GridContainer/" + pressed_button)
-			var config_file = FileAccess.open("user://config.json", FileAccess.READ_WRITE)
-			var config = JSON.parse_string(config_file.get_as_text())
-			config.character_id = btn.get_meta("character_id")
-			config_file.store_string(JSON.stringify(config))
-			config_file.close()
+			Config.rewrite_config("rewrite", "character_id", btn.get_meta("character_id"), 1)
 			model_download(btn.get_meta("character_id"))
 		"favorite":
 			var btn = get_node("/root/VRoidHub/ModelList/model_select/FavoriteModel/PanelContainer/VBoxContainer/GridContainer/" + pressed_button)
-			var config_file = FileAccess.open("user://config.txt", FileAccess.READ_WRITE)
-			var config = JSON.parse_string(config_file.get_as_text())
-			config.character_id = btn.get_meta("character_id")
-			config_file.store_string(JSON.stringify(config))
-			config_file.close()
+			Config.rewrite_config("rewrite", "character_id", btn.get_meta("character_id"), 1)
 			model_download(btn.get_meta("character_id"))
 #endregion
 
 #region モデルダウンロード
 func model_download(character_id):
+	var confs = Config.read_config()
+	match int(confs["language"]):
+		0:
+			$Loading/Label.text = "Now Downloading..."
+		1:
+			$Loading/Label.text = "モデルのダウンロード中"
 	$Loading.popup_centered()
 	for button in $model_select.get_children():
 		if button is BaseButton:

@@ -4,7 +4,13 @@
 
 [node name="OAuth" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_34mxx")
 
 [node name="model_load" type="Panel" parent="."]
@@ -32,23 +38,37 @@ offset_right = 158.0
 offset_bottom = 69.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 50
-text = "モデル読み込み"
+text = "VHA4GD"
+horizontal_alignment = 1
 
 [node name="model_load_button" type="Button" parent="model_load"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -100.0
-offset_right = 20.0
-offset_bottom = -69.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 36.0
+offset_top = -31.5
+offset_right = 235.0
+offset_bottom = 31.5
+grow_vertical = 2
 theme_override_font_sizes/font_size = 40
-text = "開始"
+text = "VRoidHub"
+
+[node name="model_load_button2" type="Button" parent="model_load"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -31.5
+offset_right = -28.0
+offset_bottom = 31.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Local VRM"
 
 [node name="close" type="Button" parent="model_load"]
 layout_mode = 0
@@ -57,6 +77,16 @@ offset_top = 13.0
 offset_right = 483.0
 offset_bottom = 44.0
 text = "閉じる"
+
+[node name="SelectVRMFile" type="FileDialog" parent="model_load"]
+title = "Open a File"
+size = Vector2i(600, 500)
+ok_button_text = "開く"
+dialog_close_on_escape = false
+cancel_button_text = "キャンセル"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.vrm")
 
 [node name="oauth" type="Panel" parent="."]
 visible = false
@@ -104,6 +134,8 @@ offset_bottom = 44.0
 text = "戻る"
 
 [connection signal="pressed" from="model_load/model_load_button" to="." method="_on_model_load_button_pressed"]
+[connection signal="pressed" from="model_load/model_load_button2" to="." method="_on_model_load_button_2_pressed"]
 [connection signal="pressed" from="model_load/close" to="." method="_on_close_pressed"]
+[connection signal="file_selected" from="model_load/SelectVRMFile" to="." method="_on_select_vrm_file_file_selected"]
 [connection signal="pressed" from="oauth/auth" to="." method="_on_auth_pressed"]
 [connection signal="pressed" from="oauth/back" to="." method="_on_back_pressed"]

@@ -11,20 +11,15 @@ config_version=5
 [application]
 
 config/name="VHA4GD"
-config/version="1.0"
+config/version="2.0"
 run/main_scene="res://Samples/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-VRoidHub="*res://addons/vha4gd/src/scripts/load.gd"
-Dialog="*res://addons/vha4gd/src/scene/dialog.tscn"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/Godot-MToon-Shader/plugin.cfg", "res://addons/vha4gd/plugin.cfg", "res://addons/vrm/plugin.cfg")
-
 [godot_idea_board]
 
 directory_path="res://addons/godot-idea-board/savedata/"
+
+[internationalization]
+
+locale/translation_remaps={}

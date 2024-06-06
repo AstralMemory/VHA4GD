@@ -7,7 +7,7 @@ var gltf_document_extension_class
 func _init():
 	register_vrm_loader()
 	if FileAccess.file_exists("res://addons/vrm/vrm_extension.gd"):
-		gltf_document_extension_class = preload("res://addons/vrm/vrm_extension.gd")
+		gltf_document_extension_class = load("res://addons/vrm/vrm_extension.gd")
 	else:
 		Dialog.no_vrm_plugin_dialog()
 
@@ -18,6 +18,9 @@ func register_vrm_loader():
 func import_scene(path: String) -> Object:
 	print("Import VRM: " + path + " ----------------------")
 	var gltf: GLTFDocument = GLTFDocument.new()
+	if gltf_document_extension_class == null:
+		Dialog.no_vrm_plugin_dialog()
+		return
 	var vrm_extension: GLTFDocumentExtension = gltf_document_extension_class.new()
 	gltf.register_gltf_document_extension(vrm_extension, true)
 	var state: GLTFState = GLTFState.new()

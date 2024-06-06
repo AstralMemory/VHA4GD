@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bqtjcct7he6u7"]
 
-[ext_resource type="Script" path="res://addons/vha4gd/src/scripts/config.gd" id="1_3j1nn"]
+[ext_resource type="Script" path="res://addons/vha4gd/src/scripts/config_scene.gd" id="1_071ng"]
 
 [node name="Config" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_3j1nn")
+script = ExtResource("1_071ng")
 
 [node name="ATLabel" type="Label" parent="."]
 layout_mode = 0
@@ -50,18 +50,17 @@ offset_right = 99.0
 offset_bottom = 162.0
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
-title = "Error!"
+title = "Warning"
 position = Vector2i(0, 36)
-size = Vector2i(289, 100)
+size = Vector2i(186, 31)
 borderless = false
 
 [node name="Label" type="Label" parent="PopupPanel"]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 285.0
-offset_bottom = 96.0
-text = "VRMプラグインがインストールされていません。
-このまま実行するとエラーが起きます。"
+offset_right = 182.0
+offset_bottom = 27.0
+text = "Not Found VRM Plugin."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -77,6 +76,7 @@ layout_mode = 0
 offset_left = 301.0
 offset_right = 746.0
 offset_bottom = 31.0
+text = "e4JzHnT6zeek8HJ5ZdAvwqwp09f3hqfgC98JtLJz4Rw"
 clear_button_enabled = true
 
 [node name="ClientIDTitle" type="Label" parent="ClientIDNode"]
@@ -99,6 +99,7 @@ layout_mode = 0
 offset_left = 301.0
 offset_right = 746.0
 offset_bottom = 31.0
+text = "m6F6H49bC2o3C3Vxf_4Zvbw_rjN_KEm-uc8i0MKPrz8"
 clear_button_enabled = true
 
 [node name="ClientSecretTitle" type="Label" parent="ClientSecretNode"]
@@ -157,30 +158,103 @@ offset_bottom = 23.0
 text = "Scope : "
 horizontal_alignment = 2
 
+[node name="LocalVRMNode" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 399.0
+offset_top = 164.0
+offset_right = 439.0
+offset_bottom = 204.0
+
+[node name="LocalVRM" type="LineEdit" parent="LocalVRMNode"]
+layout_mode = 0
+offset_left = 301.0
+offset_right = 746.0
+offset_bottom = 31.0
+text = "ModelLoadScene"
+placeholder_text = "VRoidHub"
+clear_button_enabled = true
+
+[node name="ScenePath" type="LineEdit" parent="LocalVRMNode"]
+layout_mode = 0
+offset_left = 301.0
+offset_top = 37.0
+offset_right = 746.0
+offset_bottom = 68.0
+placeholder_text = "ScenePath(res://xxx/yyy.tscn)"
+clear_button_enabled = true
+
+[node name="LocalVRMTitle" type="Label" parent="LocalVRMNode"]
+layout_mode = 0
+offset_left = 187.0
+offset_right = 293.0
+offset_bottom = 23.0
+text = "LocalVRM : "
+horizontal_alignment = 2
+
+[node name="ChangeScene" type="CheckButton" parent="LocalVRMNode"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 35.0
+offset_right = 293.0
+offset_bottom = 66.0
+button_pressed = true
+text = "ChangeScene"
+
 [node name="SetButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1111.0
-offset_top = 157.0
+offset_top = 600.0
 offset_right = 1144.0
-offset_bottom = 188.0
+offset_bottom = 631.0
 text = "Set"
 
 [node name="RefreshButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1019.0
-offset_top = 157.0
+offset_top = 600.0
 offset_right = 1087.0
-offset_bottom = 188.0
+offset_bottom = 631.0
 text = "Refresh"
 
 [node name="ClearButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 925.0
-offset_top = 157.0
+offset_top = 600.0
 offset_right = 993.0
-offset_bottom = 188.0
+offset_bottom = 631.0
 text = "Clear"
+
+[node name="ResetConfigFileButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 758.0
+offset_top = 600.0
+offset_right = 901.0
+offset_bottom = 631.0
+text = "Reset Config File"
+
+[node name="LangSelect" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 200.0
+offset_right = 56.0
+offset_bottom = 220.0
+item_count = 2
+selected = 1
+popup/item_0/text = "英語"
+popup/item_0/id = 0
+popup/item_1/text = "日本語"
+popup/item_1/id = 1
+
+[node name="LanguageTitle" type="Label" parent="."]
+layout_mode = 0
+offset_top = 171.0
+offset_right = 75.0
+offset_bottom = 194.0
+auto_translate = false
+text = "言語"
 
 [connection signal="pressed" from="SetButton" to="." method="_on_set_button_pressed"]
 [connection signal="pressed" from="RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="ResetConfigFileButton" to="." method="_on_reset_config_file_button_pressed"]
+[connection signal="item_selected" from="LangSelect" to="." method="_on_lang_select_item_selected"]

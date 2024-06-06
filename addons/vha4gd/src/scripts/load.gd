@@ -11,10 +11,9 @@ func start():
 		remove_child(model_list_inst)
 		model_list_inst.queue_free()
 	oauth_inst = oauth_scene.instantiate()
-	oauth_inst.position = get_viewport().size / 2
 	add_child(oauth_inst)
 	
-func model_list():
+func _model_list():
 	if get_node_or_null("/root/VRoidHub/OAuth"):
 		remove_child(oauth_inst)
 		oauth_inst.queue_free()
@@ -34,19 +33,59 @@ func remove_model():
 	if FileAccess.file_exists("res://Model.vrm"):
 		DirAccess.remove_absolute("res://Model.vrm")
 
-func load_model(scene_name = "VRoidHub"):
+func load_model(scene_name = "VRoidHub", model_path = "res://Model.vrm"):
 	var root_scene
 	if get_node_or_null("/root/" + scene_name):
 		root_scene = get_node("/root/" + scene_name + "/")
-	if FileAccess.file_exists("res://Model.vrm"):
+	if FileAccess.file_exists(model_path):
 		var vrm_importer = VRMImporter.new()
-		var model = vrm_importer.import_scene("res://Model.vrm")
+		var model = vrm_importer.import_scene(model_path)
 		if model:
 			if get_node("/root/" + scene_name):
 				root_scene.add_child(model)
 
-func add_animation_library(name: String, animation_library: AnimationLibrary):
-	pass
+func add_animation_library(library_name: String, animation_library: AnimationLibrary, scene_name = "VRoidHub"):
+	var anim_player: AnimationPlayer
+	if get_node_or_null("/root/" + scene_name):
+		anim_player = get_node("/root/" + scene_name + "/Model/AnimationPlayer")
+		if anim_player == null:
+			var confs = Config.read_config()
+			match int(confs["language"]):
+				0:
+					Dialog.free_dialog("Not Found AnimationPlayerNode.")
+				1:
+					Dialog.free_dialog("アニメーションプレイヤーが見つかりません。")
+			return false
+		else:
+			if !anim_player.has_animation_library(library_name):
+				anim_player.add_animation_library(library_name, animation_library)
+	
+func play_animation(animation_name: String, scene_name = "VRoidHub"):
+	var anim_player: AnimationPlayer
+	if get_node_or_null("/root/" + scene_name):
+		anim_player = get_node("/root/" + scene_name + "/Model/AnimationPlayer")
+		if anim_player == null:
+			var confs = Config.read_config()
+			match int(confs["language"]):
+				0:
+					Dialog.error_dialog("Not Found AnimationPlayerNode.")
+				1:
+					Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
+			return false
+		else:
+			anim_player.play(animation_name)
 
-func play_animation(name: String):
-	pass
+func stop_animation(scene_name = "VRoidHub"):
+	var anim_player: AnimationPlayer
+	if get_node_or_null("/root/" + scene_name):
+		anim_player = get_node("/root/" + scene_name + "/Model/AnimationPlayer")
+		if anim_player == null:
+			var confs = Config.read_config()
+			match int(confs["language"]):
+				0:
+					Dialog.error_dialog("Not Found AnimationPlayerNode.")
+				1:
+					Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
+			return false
+		else:
+			anim_player.stop()
