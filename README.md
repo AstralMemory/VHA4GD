@@ -1,3 +1,6 @@
+現在正常に動作しなくなっていますので
+今後暇があれば新しく作り直します。
+
 # VRoid Hub API 4 Godot
 GodotAssetLibraryは<a href=https://godotengine.org/asset-library/asset/2974>こちら</a>
  当プロジェクトファイルは<br>
