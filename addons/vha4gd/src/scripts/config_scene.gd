@@ -36,26 +36,28 @@ func _ready():
 			change_scene.button_pressed = false
 			scene_path.editable = false
 	client_secret.text = s["client_secret"]
-	langsel.selected = int(s["language"])
-	lang = int(s["language"])
+	#langsel.selected = int(s["language"])
+	#lang = int(s["language"])
 	if !DirAccess.dir_exists_absolute("res://addons/vrm"):
-		match lang:
-			0:
-				$PopupPanel/Label.text = "Not Found VRM Plugin."
-			1:
-				$PopupPanel/Label.text = "VRMプラグインがインストールされていません。\nこのまま実行するとエラーが起きます。"
+		#match lang:
+			#0:
+				#$PopupPanel/Label.text = "Not Found VRM Plugin."
+			#1:
+				#$PopupPanel/Label.text = "VRMプラグインがインストールされていません。\nこのまま実行するとエラーが起きます。"
+		$PopupPanel/Label.text = "VRMプラグインがインストールされていません。\nこのまま実行するとエラーが起きます。"
 		popup_panel.popup_centered()
 
 func _process(delta):
-	match lang:
-		0:
-			langtitle.text = "Language"
-			langsel.set_item_text(0, "english")
-			langsel.set_item_text(1, "japanese")
-		1:
-			langtitle.text = "言語"
-			langsel.set_item_text(0, "英語")
-			langsel.set_item_text(1, "日本語")
+	pass
+	#match lang:
+		#0:
+			#langtitle.text = "Language"
+			#langsel.set_item_text(0, "english")
+			#langsel.set_item_text(1, "japanese")
+		#1:
+			#langtitle.text = "言語"
+			#langsel.set_item_text(0, "英語")
+			#langsel.set_item_text(1, "日本語")
 
 func _on_set_button_pressed():
 	Config.rewrite_config("rewrite", "client_id", client_id.text)
@@ -70,9 +72,9 @@ func _on_set_button_pressed():
 		false:
 			Config.rewrite_config("rewrite", "change_scene", "false")
 			scene_path.editable = false
-	Config.rewrite_config("rewrite", "scene_path", scene_path.text)
-	Config.rewrite_config("rewrite", "language", str(langsel.get_selected_id()))
-	lang = langsel.get_selected_id()
+	#Config.rewrite_config("rewrite", "scene_path", scene_path.text)
+	#Config.rewrite_config("rewrite", "language", str(langsel.get_selected_id()))
+	#lang = langsel.get_selected_id()
 
 
 func _on_refresh_button_pressed():
@@ -94,17 +96,18 @@ func _on_refresh_button_pressed():
 			scene_path.editable = false
 			scene_path.text = ""
 	client_secret.text = s["client_secret"]
-	langsel.selected = int(s["language"])
+	#langsel.selected = int(s["language"])
 
 
 func _on_clear_button_pressed():
 	var config_data = Config.read_config()
 	if config_data == null:
-		match lang:
-			0:
-				Dialog.free_dialog("Don't Get Config.")
-			1:
-				Dialog.free_dialog("Configの取得に失敗しました。")
+		#match lang:
+			#0:
+				#Dialog.free_dialog("Don't Get Config.")
+			#1:
+				#Dialog.free_dialog("Configの取得に失敗しました。")
+		Dialog.free_dialog("Configの取得に失敗しました。")
 		return false
 	access_token.text = ""
 	character_id.text = ""

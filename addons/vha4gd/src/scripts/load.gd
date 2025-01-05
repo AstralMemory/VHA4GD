@@ -50,11 +50,12 @@ func add_animation_library(library_name: String, animation_library: AnimationLib
 		anim_player = get_node("/root/" + scene_name + "/Model/AnimationPlayer")
 		if anim_player == null:
 			var confs = Config.read_config()
-			match int(confs["language"]):
-				0:
-					Dialog.free_dialog("Not Found AnimationPlayerNode.")
-				1:
-					Dialog.free_dialog("アニメーションプレイヤーが見つかりません。")
+			#match int(confs["language"]):
+				#0:
+					#Dialog.free_dialog("Not Found AnimationPlayerNode.")
+				#1:
+					#Dialog.free_dialog("アニメーションプレイヤーが見つかりません。")
+			Dialog.free_dialog("アニメーションプレイヤーが見つかりません。")
 			return false
 		else:
 			if !anim_player.has_animation_library(library_name):
@@ -66,11 +67,12 @@ func play_animation(animation_name: String, scene_name = "VRoidHub"):
 		anim_player = get_node("/root/" + scene_name + "/Model/AnimationPlayer")
 		if anim_player == null:
 			var confs = Config.read_config()
-			match int(confs["language"]):
-				0:
-					Dialog.error_dialog("Not Found AnimationPlayerNode.")
-				1:
-					Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
+			#match int(confs["language"]):
+				#0:
+					#Dialog.error_dialog("Not Found AnimationPlayerNode.")
+				#1:
+					#Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
+			Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
 			return false
 		else:
 			anim_player.play(animation_name)
@@ -81,11 +83,12 @@ func stop_animation(scene_name = "VRoidHub"):
 		anim_player = get_node("/root/" + scene_name + "/Model/AnimationPlayer")
 		if anim_player == null:
 			var confs = Config.read_config()
-			match int(confs["language"]):
-				0:
-					Dialog.error_dialog("Not Found AnimationPlayerNode.")
-				1:
-					Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
+			#match int(confs["language"]):
+				#0:
+					#Dialog.error_dialog("Not Found AnimationPlayerNode.")
+				#1:
+					#Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
+			Dialog.error_dialog("アニメーションプレイヤーが見つかりません。")
 			return false
 		else:
 			anim_player.stop()

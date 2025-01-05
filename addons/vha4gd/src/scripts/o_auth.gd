@@ -19,7 +19,7 @@ var access_token_exists
 var http_request = HTTPRequest.new()
 var auth: bool = false
 var oauthing: bool = false
-var lang: int
+#var lang: int
 
 var local_model_path
 
@@ -36,23 +36,29 @@ func _ready():
 	SCOPE = config["scope"]
 	GRANT_TYPE = config["grant_type"]
 	REFRESH_TOKEN = config["refresh_token"]
-	lang = int(config["language"])
+	#lang = int(config["language"])
 	
-	match lang:
-		0:
-			$model_load/close.text = "Close"
-			$oauth/oauth_title.text = "Input Authorize Code."
-			$oauth/oauth_title.add_theme_font_size_override("font_size", 30)
-			$oauth/oauth_code_input.placeholder_text = "Authorization Code Here."
-			$oauth/auth.text = "Authorize"
-			$oauth/back.text = "Back"
-		1:
-			$model_load/close.text = "閉じる"
-			$oauth/oauth_title.text = "認証コード入力"
-			$oauth/oauth_title.add_theme_font_size_override("font_size", 50)
-			$oauth/oauth_code_input.placeholder_text = "認証コードを入力してください"
-			$oauth/auth.text = "認証"
-			$oauth/back.text = "戻る"
+	#match lang:
+		#0:
+			#$model_load/close.text = "Close"
+			#$oauth/oauth_title.text = "Input Authorize Code."
+			#$oauth/oauth_title.add_theme_font_size_override("font_size", 30)
+			#$oauth/oauth_code_input.placeholder_text = "Authorization Code Here."
+			#$oauth/auth.text = "Authorize"
+			#$oauth/back.text = "Back"
+		#1:
+			#$model_load/close.text = "閉じる"
+			#$oauth/oauth_title.text = "認証コード入力"
+			#$oauth/oauth_title.add_theme_font_size_override("font_size", 50)
+			#$oauth/oauth_code_input.placeholder_text = "認証コードを入力してください"
+			#$oauth/auth.text = "認証"
+			#$oauth/back.text = "戻る"
+	$model_load/close.text = "閉じる"
+	$oauth/oauth_title.text = "認証コード入力"
+	$oauth/oauth_title.add_theme_font_size_override("font_size", 50)
+	$oauth/oauth_code_input.placeholder_text = "認証コードを入力してください"
+	$oauth/auth.text = "認証"
+	$oauth/back.text = "戻る"
 
 #region mode_select
 func _on_back_pressed():
@@ -80,13 +86,15 @@ func _on_model_load_button_pressed():
 	OS.shell_open("https://hub.vroid.com/oauth/authorize?response_type=code&client_id=" + CLIENT_ID + "&redirect_uri=" + REDIRECT_URI + "&scope=" + SCOPE)
 
 func local_model_load():
-	match lang:
-		0:
-			$model_load/SelectVRMFile.ok_button_text = "Select"
-			$model_load/SelectVRMFile.cancel_button_text = "Cancel"
-		1:
-			$model_load/SelectVRMFile.ok_button_text = "選択"
-			$model_load/SelectVRMFile.cancel_button_text = "キャンセル"
+	#match lang:
+		#0:
+			#$model_load/SelectVRMFile.ok_button_text = "Select"
+			#$model_load/SelectVRMFile.cancel_button_text = "Cancel"
+		#1:
+			#$model_load/SelectVRMFile.ok_button_text = "選択"
+			#$model_load/SelectVRMFile.cancel_button_text = "キャンセル"
+	$model_load/SelectVRMFile.ok_button_text = "選択"
+	$model_load/SelectVRMFile.cancel_button_text = "キャンセル"
 	$model_load/SelectVRMFile.popup()
 			
 
@@ -102,18 +110,20 @@ func request_access_token(auth_code: String):
 	match GRANT_TYPE:
 		"authorization_code":
 			post_data += "code=" + auth_code
-			match lang:
-				0:
-					auth_dialog.dialog_text = "Authorized!\nPress OK to Show ModelList."
-				1:
-					auth_dialog.dialog_text = "認証が完了しました。\nOKボタンを押すとモデルリストが表示されます。"
+			#match lang:
+				#0:
+					#auth_dialog.dialog_text = "Authorized!\nPress OK to Show ModelList."
+				#1:
+					#auth_dialog.dialog_text = "認証が完了しました。\nOKボタンを押すとモデルリストが表示されます。"
+			auth_dialog.dialog_text = "認証が完了しました。\nOKボタンを押すとモデルリストが表示されます。"
 		"refresh_token":
 			post_data += "refresh_token=" + REFRESH_TOKEN
-			match lang:
-				0:
-					auth_dialog.dialog_text = "Reissuance is complete. \nClick the OK button to display the model list."
-				1:
-					auth_dialog.dialog_text = "再発行が完了しました。\nOKボタンを押すとモデルリストが表示されます。"
+			#match lang:
+				#0:
+					#auth_dialog.dialog_text = "Reissuance is complete. \nClick the OK button to display the model list."
+				#1:
+					#auth_dialog.dialog_text = "再発行が完了しました。\nOKボタンを押すとモデルリストが表示されます。"
+			auth_dialog.dialog_text = "再発行が完了しました。\nOKボタンを押すとモデルリストが表示されます。"
 	http_request.name = "AccessTokenRequest"
 	http_request.connect("request_completed", Callable(self, "_on_access_token_request_completed"))
 	add_child(http_request)
@@ -131,22 +141,25 @@ func _on_access_token_request_completed(result, response_code, headers, body):
 		Config.rewrite_config("rewrite", "refresh_token", refresh_token, 1)
 		auth = true
 		oauth.hide()
-		match lang:
-			0:
-				auth_dialog.title = "Success!"
-			1:
-				auth_dialog.title = "成功!"
+		#match lang:
+			#0:
+				#auth_dialog.title = "Success!"
+			#1:
+				#auth_dialog.title = "成功!"
+		auth_dialog.title = "成功!"
 		auth_dialog.connect("confirmed", Callable(load_model_list))
 		add_child(auth_dialog)
 		auth_dialog.popup_centered()
 	else:
-		match lang:
-			0:
-				auth_dialog.title = "Error!"
-				auth_dialog.dialog_text = "Authentication failed.\nResponse_Code: " + str(response_code)
-			1:
-				auth_dialog.title = "エラー"
-				auth_dialog.dialog_text = "認証に失敗しました。\nResponse_Code: " + str(response_code)
+		#match lang:
+			#0:
+				#auth_dialog.title = "Error!"
+				#auth_dialog.dialog_text = "Authentication failed.\nResponse_Code: " + str(response_code)
+			#1:
+				#auth_dialog.title = "エラー"
+				#auth_dialog.dialog_text = "認証に失敗しました。\nResponse_Code: " + str(response_code)
+		auth_dialog.title = "エラー"
+		auth_dialog.dialog_text = "認証に失敗しました。\nResponse_Code: " + str(response_code)
 		add_child(auth_dialog)
 		auth_dialog.popup_centered()
 

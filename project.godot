@@ -12,9 +12,20 @@ config_version=5
 
 config/name="VHA4GD"
 config/version="2.0"
+config/tags=PackedStringArray("作り直し")
 run/main_scene="res://Samples/main.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+VRoidHub="*res://addons/vha4gd/src/scripts/load.gd"
+Dialog="*res://addons/vha4gd/src/scene/dialog.tscn"
+Config="*res://addons/vha4gd/src/scripts/config.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Godot-MToon-Shader/plugin.cfg", "res://addons/vha4gd/plugin.cfg", "res://addons/vrm/plugin.cfg")
 
 [godot_idea_board]
 

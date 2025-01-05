@@ -46,11 +46,12 @@ func _init():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var config = Config.read_config()
-	match int(config["language"]):
-		0:
-			$model_select/close.text = "Close"
-		1:
-			$model_select/close.text = "閉じる"
+	#match int(config["language"]):
+		#0:
+			#$model_select/close.text = "Close"
+		#1:
+			#$model_select/close.text = "閉じる"
+	$model_select/close.text = "閉じる"
 	FAVORITE_API = "https://hub.vroid.com/api/hearts?" + config["client_id"]
 	header = ["X-Api-Version: 11", "Authorization: Bearer " + config["access_token"]]
 	mdl_header = ["X-Api-Version: 11", "Authorization: Bearer " + config["access_token"], "Content-Type: application/x-www-form-urlencoded"]
@@ -222,11 +223,12 @@ func _on_btn_pressed(pressed_button, mode):
 #region モデルダウンロード
 func model_download(character_id):
 	var confs = Config.read_config()
-	match int(confs["language"]):
-		0:
-			$Loading/Label.text = "Now Downloading..."
-		1:
-			$Loading/Label.text = "モデルのダウンロード中"
+	#match int(confs["language"]):
+		#0:
+			#$Loading/Label.text = "Now Downloading..."
+		#1:
+			#$Loading/Label.text = "モデルのダウンロード中"
+	$Loading/Label.text = "モデルのダウンロード中"
 	$Loading.popup_centered()
 	for button in $model_select.get_children():
 		if button is BaseButton:
